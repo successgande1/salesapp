@@ -8,3 +8,12 @@ def index(request):
 
 def staff(request):
     return render(request, 'dashboard/staff.html')
+
+def product(request):
+    return render(request, 'dashboard/product.html')
+
+def sales(request):
+    return render(request, 'dashboard/sales.html')
+
+def profile(request):
+    return render(request, 'dashboard/profile.html')
