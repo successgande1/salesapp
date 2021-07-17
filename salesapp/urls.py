@@ -17,10 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+#Import user app and its views module
+from user import views as user_view
+from django.contrib.auth import views as auth_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('dashboard.urls')),
+    path('dashboard/', include('dashboard.urls')),
+    path('register/', user_view.register, name = 'user-register'),
+    path('login/', auth_view.LoginView.as_view(template_name='user/login.html'), name = 'user-login'),
+    path('logout/', auth_view.LogoutView.as_view(template_name='user/logout.html'), name = 'user-logout'),
 ]
 
 if settings.DEBUG:
