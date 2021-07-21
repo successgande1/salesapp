@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Login {% endblock %}
+{% block title %} User Profile {% endblock %}
 
 {% load crispy_forms_tags %}
 
@@ -24,25 +24,25 @@
                             <tbody>
                               <tr>
                                 <th scope="row">Name</th>
-                                <td>Apollos Gande</td>
+                                <td>{{user.username}}</td>
                               </tr>   
                               <tr>
                                 <th scope="row">Phone</th>
-                                <td>08026421028</td>                                   
+                                <td>{{user.profile.phone}}</td>                                   
                               </tr>  
                               <tr>
                                 <th scope="row">Email</th>
-                                <td>successgande@hotmail.com</td>                                   
+                                <td>{{user.email}}</td>                                   
                               </tr>  
                               <tr>
                                 <th scope="row">Address</th>
-                                <td>Behind NKST Anzwar, Gboko-North</td>                                   
+                                <td>{{user.profile.address}}</td>                                   
                               </tr>                   
                             </tbody>
                           </table>
                     </div>
                     <div class="col-md-4">
-                        <img class="img-thumbnail" src="./media/blessing.jpg" alt="">
+                        <img class="img-thumbnail" src="{{ user.profile.image.url }}" alt="">
                     </div>
                 </div>
                </div>

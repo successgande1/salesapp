@@ -12,8 +12,8 @@ CATEGORY = (
 class Product(models.Model):
     name = models.CharField(max_length=100, null=True)
     category = models.CharField(max_length=100, choices=CATEGORY, null=True)
-    costprice = models.PositiveIntegerField(null=True)
-    sellingprice = models.PositiveIntegerField(null=True)
+    cost = models.PositiveIntegerField(null=True)
+    price = models.PositiveIntegerField(null=True)
     quantity = models.PositiveIntegerField(null=True)
 
     class Meta:
@@ -26,8 +26,7 @@ class Sales(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     staff = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     customer = models.CharField(max_length=30, null=True)
-    sellingprice = models.PositiveIntegerField(null=True)
-    salesqty = models.PositiveIntegerField(null=True)
+    quantity = models.PositiveIntegerField(null=True)
     salesdate = models.DateTimeField(auto_now_add=True)
 
     class Meta:

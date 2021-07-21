@@ -21,4 +21,4 @@ def sales(request):
     
 @login_required(login_url='user-login')
 def profile(request):
-    return render(request, 'dashboard/profile.html')
+    return render(request, 'user/profile.html')

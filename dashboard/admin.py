@@ -9,7 +9,7 @@ admin.site.site_header = 'SUCCESS POS Dashboard'
 
 #Customize The Display of Model in a Table inside the Admin Pannel
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'costprice', 'sellingprice', 'quantity')
+    list_display = ('name', 'category', 'cost', 'price', 'quantity')
 
 # Register your models here and also pass your class Admin for List Display if available.
 admin.site.register(Product,ProductAdmin)
