@@ -22,7 +22,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-class Sales(models.Model):
+class Sales(models.Model): 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     staff = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     customer = models.CharField(max_length=30, null=True)

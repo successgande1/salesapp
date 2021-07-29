@@ -2,6 +2,8 @@
 
 {% block title %} Product Page {% endblock %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 
 {% include 'partials/_topnav.html' %}
@@ -14,31 +16,9 @@
                 <h4>Add Product</h4>
                 <hr>
                 <form action="" method="POST">
+                  {% csrf_token %}
 
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Name</label>
-                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                          
-                        </div>
-                        <div class="form-group">
-                          <label for="quantity">Quantity</label>
-                          <input type="text" class="form-control" id="exampleInputPassword1">
-                        </div>
-                        <div class="form-group">
-                            <label for="costprice">Cost Price</label>
-                            <input type="number" class="form-control" id="exampleInputPassword1">
-                        </div>
-                        <div class="form-group">
-                            <label for="sellingprice">Selling Price</label>
-                            <input type="number" class="form-control" id="exampleInputPassword1">
-                          </div>
-                        <div class="form-group">
-                            <label for="category">Category</label>
-                            <select id="category" class="form-control">
-                              <option selected>Choose...</option>
-                              <option>...</option>
-                            </select>
-                          </div>
+                  {{ add_product_form | crispy }}
                         
 
                     <input class="btn btn-success btn-block" value="Add Product" type="submit">
@@ -59,30 +39,20 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {% for item in items %}
                   <tr>
                     <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.category }}</td>
+                    <td>{{ item.cost }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.quantity }}</td>
                     <td>
                         <a class="btn btn-info btn-sm" href="">Edit</a>
-                        <a class="btn btn-danger btn-sm" href="">Delete</a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'dashboard-product-delete' item.id %}">Delete</a>
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Apollos</td>
-                    <td>Gande</td>
-                    <td>@mdo</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>
-                        <a class="btn btn-info btn-sm" href="">Edit</a>
-                        <a class="btn btn-danger btn-sm" href="">Delete</a>
-                    </td>
-                  </tr>                      
+                  {% endfor %}             
                 </tbody>
               </table>
         </div>
