@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from .models import Product
 from .forms import ProductForm, SalesForm
 
+from django.contrib import messages
+
 # Create your views here.
 @login_required(login_url='user-login')
 def index(request):
@@ -26,6 +28,8 @@ def product(request):
         #Check if form is valid
         if add_product_form.is_valid:
             add_product_form.save()
+            #Notify User on Product Save
+            messages.success(request, 'Product Added Successfully')
             return redirect('dashboard-product')
     else:
         add_product_form = ProductForm()
@@ -47,8 +51,37 @@ def profile(request):
 #Method for Deleting Product
 def product_delete(request, pk):
     #Grab a particular Item by item
-    items = Product.objects.get(id=pk)
+    item = Product.objects.get(id=pk)
     if request.method == 'POST':
-        items.delete()
+        item.delete()
+        #Notify User on Product delete
+        messages.error(request, f'{item} Product Deleted Successfully')
         return redirect('dashboard-product')
-    return render(request, 'dashboard/product_delete.html')
+    context = {
+        'item' : item
+    }
+    return render(request, 'dashboard/product_delete.html', context)
+
+def product_update(request, pk):
+    #Create an item variable and capture a product using its id
+    item = Product.objects.get(id=pk)
+    #Check if the user request method is through POST
+    if request.method == 'POST':
+        #Create Product Update Form Variable and call the ProductForm class method
+        #and pass in the request.POST with an instance of the Product with particular id
+        product_update_form = ProductForm(request.POST, instance=item)
+        #If the Product Update form is valid
+        if product_update_form.is_valid():
+            #Save the Product Update Form using the save method
+            product_update_form.save()
+            #Redirect to the Dashboard
+            messages.success(request, f'{item} Updated Successfully')
+            return redirect('dashboard-product')
+    else:
+        product_update_form = ProductForm(instance=item)
+
+    context = {
+        'item':item,
+        'product_update_form':product_update_form,
+    }
+    return render(request, 'dashboard/product_update.html', context)

@@ -9,9 +9,13 @@
             <div class="border bg-white p-3">
                 <h3>Delete Item</h3>
                 <hr>
+               
                <div class="alert alert-danger">
-                   <h4>Are Sure You want to Delete this Item?</h4>
+                   
+                   <h5>Are Sure You want to Delete '{{ item.name }}'?</h5>
+                  
                </div>
+               
                <form method="POST">
                    {% csrf_token %}
 

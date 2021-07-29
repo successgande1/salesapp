@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 #Import user app and its views module
 from user import views as user_view
 from django.contrib.auth import views as auth_view
+from dashboard import views as product_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +28,8 @@ urlpatterns = [
     path('register/', user_view.register, name = 'user-register'),
     path('profile/', user_view.profile, name = 'user-profile'),
     path('profile/update/', user_view.profile_update, name = 'user-profile-update'),
+    path('product/delete/<int:pk>/', product_view.product_delete, name = 'dashboard-product-delete'),
+    path('product/update/<int:pk>/', product_view.product_update, name = 'dashboard-product-update'),
     path('', auth_view.LoginView.as_view(template_name='user/login.html'), name = 'user-login'),
     path('logout/', auth_view.LogoutView.as_view(template_name='user/logout.html'), name = 'user-logout'),
 ]
