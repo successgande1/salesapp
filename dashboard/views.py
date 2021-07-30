@@ -65,6 +65,7 @@ def profile(request):
     return render(request, 'user/profile.html')
 
 #Method for Deleting Product
+@login_required(login_url='user-login')
 def product_delete(request, pk):
     #Grab a particular Item by item
     item = Product.objects.get(id=pk)
@@ -78,6 +79,7 @@ def product_delete(request, pk):
     }
     return render(request, 'dashboard/product_delete.html', context)
 
+@login_required(login_url='user-login')
 def product_update(request, pk):
     #Create an item variable and capture a product using its id
     item = Product.objects.get(id=pk)

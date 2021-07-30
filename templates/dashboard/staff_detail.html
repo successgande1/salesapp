@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %} User Profile {% endblock %}
+{% block title %} {{worker.username}} | Profile Detail {% endblock %}
 
 {% load crispy_forms_tags %}
 
+
 {% block content %}
-<!--Table-->
+
+{% include 'partials/_topnav.html' %}
+
 <div class="container">
     <div class="row my-4">
       {% include 'partials/_alerts.html' %}
@@ -19,7 +22,7 @@
                <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <span class="h4">Profile Information</span><a class="btn btn-info btn-sm float-right" href="{% url 'dashboard-staff' %}">All Staff</a>
+                        <span class="h4">{{worker.username}} Profile Information</span><a class="btn btn-info btn-sm float-right" href="{% url 'dashboard-staff' %}">View All Staff</a>
                         <hr>
                         <table class="table bg-white table-borderless">
                             <tbody>
@@ -53,5 +56,5 @@
     </div>
   </table>
 </div>
-<!--End Table-->
+
 {% endblock %}
