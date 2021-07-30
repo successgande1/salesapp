@@ -5,6 +5,7 @@ from .models import Product
 from .forms import ProductForm, SalesForm
 from django.contrib.auth.models import User
 
+
 from django.contrib import messages
 
 # Create your views here.
@@ -58,6 +59,9 @@ def product(request):
 
 @login_required(login_url='user-login')
 def sales(request):
+    context = {
+        
+    }
     return render(request, 'dashboard/sales.html', context)
     
 @login_required(login_url='user-login')
@@ -75,7 +79,7 @@ def product_delete(request, pk):
         messages.error(request, f'{item} Product Deleted Successfully')
         return redirect('dashboard-product')
     context = {
-        'item' : item
+        'item' : item,
     }
     return render(request, 'dashboard/product_delete.html', context)
 
@@ -103,3 +107,5 @@ def product_update(request, pk):
         'product_update_form':product_update_form,
     }
     return render(request, 'dashboard/product_update.html', context)
+
+

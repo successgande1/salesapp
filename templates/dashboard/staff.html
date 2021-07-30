@@ -2,6 +2,8 @@
 
 {% block title %} Staff Page {% endblock %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 
 {% include 'partials/_topnav.html' %}
@@ -9,7 +11,21 @@
 <!--Table-->
 <div class="container">
     <div class="row my-4">
-        <div class="col-md-4"></div>
+      {% include 'partials/_alerts.html' %}
+      <div class="col-md-4">
+        <div class="border bg-white p-3">
+            <h4>Add Staff</h4>
+            <hr>
+            <form action="" method="POST">
+              {% csrf_token %}
+
+              {{ form | crispy }}
+              
+              <input class="btn btn-success" type="submit" value="register">
+          </form>
+        </div>
+      </div>
+        
         <div class="col-md-8">
             <table class="table bg-white">
                 <thead class="bg-info text-white">

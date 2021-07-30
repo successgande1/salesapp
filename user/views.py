@@ -13,13 +13,13 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'User Added Successfully')
-            return redirect('user-login')
+            return redirect('dashboard-staff')
     else:
         form = CreateUserForm()
     context = {
         'form':form
     }
-    return render(request, 'user/register.html', context)
+    return render(request, 'dashboard/user_register.html', context)
 
 def logout(request):
     return render(request, 'user/logout.html')
