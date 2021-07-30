@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from .models import Product
+from .models import Product, Sales
 from .forms import ProductForm, SalesForm
 from django.contrib.auth.models import User
 
@@ -59,8 +59,9 @@ def product(request):
 
 @login_required(login_url='user-login')
 def sales(request):
+    orders = Sales.objects.all()
     context = {
-        
+        'orders':orders,
     }
     return render(request, 'dashboard/sales.html', context)
     
@@ -83,6 +84,7 @@ def product_delete(request, pk):
     }
     return render(request, 'dashboard/product_delete.html', context)
 
+#Update Product Detail
 @login_required(login_url='user-login')
 def product_update(request, pk):
     #Create an item variable and capture a product using its id

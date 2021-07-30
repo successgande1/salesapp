@@ -27,10 +27,11 @@ class Sales(models.Model):
     staff = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     customer = models.CharField(max_length=30, null=True)
     quantity = models.PositiveIntegerField(null=True)
+    price = models.PositiveIntegerField(null=True)
     salesdate = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name_plural = 'Product Sales'
 
     def __str__(self):
-        return self.product
+        return self.customer
