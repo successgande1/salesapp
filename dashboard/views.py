@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import Product
 from .forms import ProductForm, SalesForm
+from django.contrib.auth.models import User
 
 from django.contrib import messages
 
@@ -11,10 +12,25 @@ from django.contrib import messages
 def index(request):
     return render(request, 'dashboard/index.html')
 
+#METHOD FOR DISPLAYING LIST OF STAFF
 @login_required(login_url='user-login')
 def staff(request):
-    return render(request, 'dashboard/staff.html')
+    workers = User.objects.all()
 
+    context = {
+        'workers':workers
+    }
+    return render(request, 'dashboard/staff.html', context)
+
+
+#METHOD FOR DISPLAYING STAFF DETAIL
+@login_required(login_url='user-login')
+def staff_detail(request, pk):
+    worker = User.objects.get(id=pk)
+    context = {
+        'worker':worker
+    }
+    return render(request, 'dashboard/staff_detail.html', context)
 
 #Method for Add and Displaying Products
 @login_required(login_url='user-login')
