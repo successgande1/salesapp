@@ -2,12 +2,17 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Create your views here.
 def login(request):
     return render(request, 'user/login.html')
 
+#Add New User Method
 def register(request):
+    #Create variable and query all users
+    workers = User.objects.all()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
@@ -17,7 +22,8 @@ def register(request):
     else:
         form = CreateUserForm()
     context = {
-        'form':form
+        'form':form,
+        'workers':workers,
     }
     return render(request, 'dashboard/user_register.html', context)
 

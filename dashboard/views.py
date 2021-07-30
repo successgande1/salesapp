@@ -109,3 +109,5 @@ def product_update(request, pk):
     return render(request, 'dashboard/product_update.html', context)
 
 
+
+

@@ -7,22 +7,49 @@
 {% block content %}
 
 <div class="container">
-    <div class="row mt-5">
-        <div class="col-md-6 offset-md-3">
-            <div class="border bg-white p-3">
-                <h3>Registration Page</h3>
-                <hr>
-                <form action="" method="POST">
-                    {% csrf_token %}
+    <div class="row my-4">
+      {% include 'partials/_alerts.html' %}
+      <div class="col-md-4">
+        <div class="border bg-white p-3">
+            <h4>Add Staff</h4>
+            <hr>
+            <form action="" method="POST">
+              {% csrf_token %}
 
-                    {{ form | crispy }}
-                    
-                    <input class="btn btn-success" type="submit" value="register">
-                </form>
-            </div>
+              {{ form | crispy }}
+              
+              <input class="btn btn-success" type="submit" value="register">
+          </form>
+        </div>
+      </div>
+        
+        <div class="col-md-8">
+            <table class="table bg-white">
+                <thead class="bg-info text-white">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for worker in workers %}
+                    <tr>
+                      <th scope="row"><a class="btn btn-info btn-sm" href="{% url 'dashboard-staff-detail' worker.id %}">View Profile</a></th>
+                      <td>{{ worker.username }}</td>
+                      <td>{{ worker.email }}</td>
+                      <td>{{ worker.profile.phone }}</td>
+                    </tr>
+                  {% endfor %}
+              </table>
         </div>
     </div>
+
+  
+  
     
+  </table>
 </div>
 
 {% endblock %}

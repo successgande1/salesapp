@@ -16,13 +16,7 @@
         <div class="border bg-white p-3">
             <h4>Add Staff</h4>
             <hr>
-            <form action="" method="POST">
-              {% csrf_token %}
-
-              {{ form | crispy }}
-              
-              <input class="btn btn-success" type="submit" value="register">
-          </form>
+            <a class="btn btn-info btn-sm" href="{% url 'user-register' %}">View Profile</a>
         </div>
       </div>
         
