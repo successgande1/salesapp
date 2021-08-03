@@ -57,11 +57,23 @@ def product(request):
     }
     return render(request, 'dashboard/product.html', context)
 
+#Add and Display Sales Method
 @login_required(login_url='user-login')
 def sales(request):
+    #List of Sales
     orders = Sales.objects.all()
+    
+    if request.method == 'POST':
+        Sales_Form = SalesForm(request.POST)
+        if Sales_Form.is_valid:
+            Sales_Form.save()
+            messages.success(request, 'Sales Added Successfully')
+            return redirect('dashboard-sales')
+    else:
+        Sales_Form = SalesForm()
     context = {
-        'orders':orders,
+        'orders':orders, 
+        'Sales_Form':Sales_Form,
     }
     return render(request, 'dashboard/sales.html', context)
     

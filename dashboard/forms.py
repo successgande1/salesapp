@@ -10,4 +10,4 @@ class ProductForm(forms.ModelForm):
 class SalesForm(forms.ModelForm):
     class Meta:
         model = Sales
-        fields = ['product', 'customer', 'quantity']
+        fields = ['product', 'customer', 'quantity', 'price']
