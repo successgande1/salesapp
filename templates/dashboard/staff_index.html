@@ -1,5 +1,7 @@
 {% load crispy_forms_tags %}
 
+{% load humanize %}
+
 <div class="container">
     <!--Table-->
  <div class="container">
@@ -10,7 +12,7 @@
                 <hr>
                 <form action="" method="POST">
                   {% csrf_token %}
-
+                  
                   
 
                     <input class="btn btn-success btn-block" value="Add Sales" type="submit">
@@ -26,24 +28,40 @@
                     <th scope="col">Category</th>
                     <th scope="col">Price</th>
                     <th scope="col">Qty Sold</th>
-                    <th scope="col">Sold Date</th>
-                    <th scope="col">Sold By</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Date</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
+                  {% if sales  %}
+
+                  {% for sell in sales %}
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Laptop</td>
-                    <td>Computers</td>
-                    <td>N120,000</td>
-                    <td>1</td>
-                    <td>12/07/2021</td>
-                    <td>Apollos Gande</td>
+                    
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ sell.product }}</td>
+                    <td>{{ sell.product.category }}</td>
+                    <td>N{{ sell.price | intcomma }}</td>
+                    <td>{{ sell.quantity }}</td>
+                    <td>
+                      <!--Multiply Price by Quantity Sold-->
+                      {% widthratio sell.price 1 sell.quantity as total_amount %}
+
+                      <!--Convert the Result to Comma Separated Figure-->
+                      N{{ total_amount | intcomma }}
+                    </td>
+                    <td>{{ sell.salesdate | naturaltime }}</td>
                     <td>
                         <a class="btn btn-info btn-sm" href="">Receipt</a>
                     </td>
-                  </tr>                   
+                  </tr> 
+                  {% endfor %}  
+
+                  {% else %} 
+                  <tr> No Sales Available</tr> 
+
+                  {% endif %}              
                 </tbody>
               </table>
         </div>

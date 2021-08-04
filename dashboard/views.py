@@ -11,7 +11,31 @@ from django.contrib import messages
 # Create your views here.
 @login_required(login_url='user-login')
 def index(request):
-    return render(request, 'dashboard/index.html')
+    #List all sales
+    sales = Sales.objects.all().order_by('-salesdate')
+    context = {
+       'sales' : sales,
+    }
+    return render(request, 'dashboard/index.html', context)
+
+#User Add Sales 
+@login_required(login_url='user-login')
+def user_add_sales(request):
+    #List all sales
+    sales = Sales.objects.all().order_by('-salesdate')
+    if request.method == 'POST':
+        sales_form = SalesForm(request.POST)
+        if sales_form.is_valid:
+            sales_form.save()
+            messages.success(request, 'Sales Added Successfully')
+            return redirect('dashboard-user-sales')
+    else:
+        sales_form = SalesForm()
+    context = {
+       'sales' : sales,
+       'sales_form' : sales_form,
+    }
+    return render(request, 'dashboard/user_sales.html', context)
 
 #METHOD FOR DISPLAYING LIST OF STAFF
 @login_required(login_url='user-login')
@@ -57,7 +81,7 @@ def product(request):
     }
     return render(request, 'dashboard/product.html', context)
 
-#Add and Display Sales Method
+#Add and Display Sales Method For Admin
 @login_required(login_url='user-login')
 def sales(request):
     #List of Sales
@@ -76,6 +100,7 @@ def sales(request):
         'Sales_Form':Sales_Form,
     }
     return render(request, 'dashboard/sales.html', context)
+
     
 @login_required(login_url='user-login')
 def profile(request):

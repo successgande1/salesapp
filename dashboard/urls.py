@@ -6,6 +6,7 @@ from user import views as user_view
 urlpatterns = [
     path('dashboard/', views.index, name = 'dashboard-index'),
     path('staff/', views.staff, name = 'dashboard-staff'),
+    path('staff/sales/', views.user_add_sales, name = 'dashboard-user-sales'),
     path('product/', views.product, name = 'dashboard-product'),
     path('register/', user_view.register, name = 'user-register'),
     path('product/delete/<int:pk>/', views.product_delete, name = 'dashboard-product-delete'),
